@@ -1,17 +1,17 @@
-from ResNet34MLP8 import ResNet34MLP8
+from ResNet34MLP7_3D import ResNet34MLP7_3D
 from ImagePositionDataset import ImagePositionDataset
 from torch.utils.data import DataLoader
 import torch
 import matplotlib.pyplot as plt
 import numpy as np
 
-TEST_PATH = '/home/ben/ml_project/dataset3/test/'
+TEST_PATH = '/home/ben/ml_project/dataset2/test/'
 WEIGHT_PATH = '/home/ben/ml_project/weights/'
-RESULT_CSV_NAME = '/home/ben/ml_project/Results/Dataset3_ResNet34MLP8_Adam_1441.csv'
-best_result = np.empty([0, 4])
+RESULT_CSV_NAME = '/home/ben/ml_project/Results/Dataset2_ResNet34MLP7_Adam_1441.csv'
+best_result = np.empty([0, 6])
 
 def test_model(dataloader, weight_name, draw=False):
-    model = ResNet34MLP8()
+    model = ResNet34MLP7_3D()
     model.load_state_dict(torch.load(WEIGHT_PATH + weight_name))
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
@@ -71,7 +71,7 @@ x_axis = []
 #     average_losses.append(test_model(test_dataloader, weight_name))
 
 # Last One
-last_weights = 1441
+last_weights = 6800
 x_axis.append(last_weights)
 average_losses.append(test_model(test_dataloader, ('epoch_' + str(last_weights) + '.pth'), draw=True))
 

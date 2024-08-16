@@ -1,16 +1,16 @@
 from ImagePositionDataset import ImagePositionDataset
 from torch.utils.data import DataLoader
 import torch
-from ResNet34MLP8 import ResNet34MLP8
+from ResNet34MLP7_3D import ResNet34MLP7_3D
 import matplotlib.pyplot as plt
 import numpy as np
 
-TRAIN_PATH = '/home/ben/ml_project/dataset3/train/'
-VALID_PATH = '/home/ben/ml_project/dataset3/valid/'
+TRAIN_PATH = '/home/ben/ml_project/dataset2/train/'
+VALID_PATH = '/home/ben/ml_project/dataset2/valid/'
 WEIGHT_PATH = '/home/ben/ml_project/weights/'
 CONTINUE = 0   # Start from beginning, use 0
 
-model = ResNet34MLP8()
+model = ResNet34MLP7_3D()
 
 if torch.cuda.is_available():
     device = torch.device("cuda")

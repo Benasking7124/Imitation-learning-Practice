@@ -3,3 +3,6 @@
 /dataset2
 /dataset3
 /weights
+/spot/dataset
+/spot/weights
+/spot/__pycache__
