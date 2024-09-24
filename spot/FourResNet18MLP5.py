@@ -2,26 +2,30 @@ import torch
 import torch.nn as nn
 from torchvision.models import resnet18
 
-class FourResNet18MLP3(nn.Module):
+class FourResNet18MLP5(nn.Module):
     def __init__(self):
-        super(FourResNet18MLP3, self).__init__()
+        super(FourResNet18MLP5, self).__init__()
 
         # ResNet1
-        self.resnet1 = resnet18(pretrained=True)
+        self.resnet1 = resnet18(pretrained=False)
         self.resnet1 = nn.Sequential(*list(self.resnet1.children())[:-1])
         # ResNet2
-        self.resnet2 = resnet18(pretrained=True)
+        self.resnet2 = resnet18(pretrained=False)
         self.resnet2 = nn.Sequential(*list(self.resnet2.children())[:-1])
         # ResNet3
-        self.resnet3 = resnet18(pretrained=True)
+        self.resnet3 = resnet18(pretrained=False)
         self.resnet3 = nn.Sequential(*list(self.resnet3.children())[:-1])
         # ResNet4
-        self.resnet4 = resnet18(pretrained=True)
+        self.resnet4 = resnet18(pretrained=False)
         self.resnet4 = nn.Sequential(*list(self.resnet4.children())[:-1])
 
         # MLP Layers
         self.fc_layers = nn.Sequential(
             nn.Linear(2048, 1024),
+            nn.ReLU(),
+            nn.Linear(1024, 1024),
+            nn.ReLU(),
+            nn.Linear(1024, 1024),
             nn.ReLU(),
             nn.Linear(1024, 1024),
             nn.ReLU(),
@@ -40,7 +44,7 @@ class FourResNet18MLP3(nn.Module):
         embedding4 = self.resnet4(image4)
         embedding4 = torch.flatten(embedding4, start_dim=1)
 
-        # Flatten the features
+        # Concatenate the features
         features = torch.cat((embedding1, embedding2, embedding3, embedding4), dim=1)
 
         # Forward pass through the fully connected layers

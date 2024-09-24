@@ -14,6 +14,7 @@ class SpotImagePositionDataset(Dataset):
         return self.labels.shape[0]
     
     def __getitem__(self, index):
+        # print(index)
         time_stamp_path = self.dataset_path + format(index, '05d') + '/'
 
         image_pair = []
